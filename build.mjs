@@ -1,4 +1,4 @@
-import { readFile, mkdir, writeFile } from "node:fs/promises";
+import { readFile, mkdir, writeFile, cp } from "node:fs/promises";
 
 const root = new URL(".", import.meta.url);
 const read = (name) => readFile(new URL(name, root), "utf8");
@@ -21,4 +21,5 @@ await mkdir(new URL("dist/", root), { recursive: true });
 await writeFile(new URL("dist/typegarden.html", root), html);
 await writeFile(new URL("dist/index.html", root), html);
 await writeFile(new URL("dist/.nojekyll", root), "");
+await cp(new URL("nihonshi/", root), new URL("dist/nihonshi/", root), { recursive: true });
 console.log("Created dist/index.html for web publishing and dist/typegarden.html for local use.");
